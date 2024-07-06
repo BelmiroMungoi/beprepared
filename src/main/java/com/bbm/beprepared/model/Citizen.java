@@ -17,8 +17,11 @@ public class Citizen {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Column(unique = true, length = 9)
     private String phone;
     private String deviceId;
+    @Column(length = 6)
+    private String otp;
     private boolean verified;
 
     @ManyToOne

@@ -8,6 +8,7 @@ import com.bbm.beprepared.repository.ProvinceRepository;
 import com.bbm.beprepared.service.LocationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -19,27 +20,32 @@ public class LocationServiceImpl implements LocationService {
     private final ProvinceRepository provinceRepository;
 
     @Override
+    @Transactional(readOnly = true)
     public List<Province> getAllProvinces() {
         return provinceRepository.findAll();
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<City> getAllCities() {
         return cityRepository.findAll();
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<City> getAllCitiesProvinceId(Long provinceId) {
         return cityRepository.findAllByProvinceId(provinceId);
     }
 
     @Override
+    @Transactional(readOnly = true)
     public Province getProvinceById(Long provinceId) {
         return provinceRepository.findById(provinceId).orElseThrow(() ->
                 new EntityNotFoundException("A província não foi encontrada!"));
     }
 
     @Override
+    @Transactional(readOnly = true)
     public City getCityById(Long cityId) {
         return cityRepository.findById(cityId).orElseThrow(() ->
                 new EntityNotFoundException("O distrito não foi encontrado!"));
