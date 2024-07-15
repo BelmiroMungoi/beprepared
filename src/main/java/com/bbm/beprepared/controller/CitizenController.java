@@ -4,6 +4,7 @@ import com.bbm.beprepared.dto.request.CitizenRequestDto;
 import com.bbm.beprepared.dto.response.CitizenResponseDto;
 import com.bbm.beprepared.mapper.Mapper;
 import com.bbm.beprepared.service.CitizenService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,7 +21,7 @@ public class CitizenController {
     private final CitizenService citizenService;
 
     @PostMapping("/")
-    public ResponseEntity<String> createCitizen(@RequestBody CitizenRequestDto citizenRequestDto) {
+    public ResponseEntity<String> createCitizen(@Valid @RequestBody CitizenRequestDto citizenRequestDto) {
         return new ResponseEntity<>(citizenService.createCitizen(
                 mapper.mapCitizenRequestToModel(citizenRequestDto),
                 citizenRequestDto.getCityId()),

@@ -5,6 +5,7 @@ import com.bbm.beprepared.dto.response.StatsResponse;
 import com.bbm.beprepared.dto.response.UserResponseDto;
 import com.bbm.beprepared.mapper.Mapper;
 import com.bbm.beprepared.service.UserService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,7 +20,7 @@ public class UserController {
     private final UserService userService;
 
     @PostMapping("/")
-    public ResponseEntity<String> createUser(@RequestBody UserRequestDto userRequestDto) {
+    public ResponseEntity<String> createUser(@Valid @RequestBody UserRequestDto userRequestDto) {
         return new ResponseEntity<>(userService.createUser(
                 mapper.mapUserRequestToModel(userRequestDto)),
                 HttpStatus.CREATED
