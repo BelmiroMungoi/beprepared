@@ -4,11 +4,13 @@ import com.bbm.beprepared.dto.response.StatsResponse;
 import com.bbm.beprepared.exception.BadRequestException;
 import com.bbm.beprepared.exception.EntityNotFoundException;
 import com.bbm.beprepared.model.User;
+import com.bbm.beprepared.model.enums.Role;
 import com.bbm.beprepared.repository.AlertRepository;
 import com.bbm.beprepared.repository.CitizenRepository;
 import com.bbm.beprepared.repository.UserRepository;
 import com.bbm.beprepared.service.UserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -19,6 +21,7 @@ public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
     private final AlertRepository alertRepository;
     private final CitizenRepository citizenRepository;
+    private final PasswordEncoder passwordEncoder;
 
     @Override
     @Transactional
@@ -26,6 +29,8 @@ public class UserServiceImpl implements UserService {
         if (userRepository.existsByEmail(user.getEmail())) {
             throw new BadRequestException("Já existe um usuário com esse e-mail!");
         }
+        user.setRole(Role.ADMIN);
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
         userRepository.save(user);
         return "Usuário criado com sucesso!";
     }

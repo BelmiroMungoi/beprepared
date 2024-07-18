@@ -40,14 +40,14 @@ public class LocationController {
     }
 
     @GetMapping("/cities/{provinceId}")
-    public ResponseEntity<List<CityResponseDto>> getCityById(@PathVariable Long provinceId) {
+    public ResponseEntity<List<CityResponseDto>> getCityByProvinceId(@PathVariable Long provinceId) {
         return ResponseEntity.ok(mapper.mapCityToResponseDtoList(
                 locationService.getAllCitiesProvinceId(provinceId)
         ));
     }
 
     @GetMapping("/city")
-    public ResponseEntity<CityResponseDto> getCityByProvinceId(@RequestParam Long id) {
+    public ResponseEntity<CityResponseDto> getCityById(@RequestParam Long id) {
         return ResponseEntity.ok(mapper.mapCityToResponseDto(
                 locationService.getCityById(id)
         ));

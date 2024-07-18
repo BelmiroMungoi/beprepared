@@ -12,6 +12,8 @@ public interface CitizenRepository extends JpaRepository<Citizen, Long> {
 
     boolean existsByPhone(String phone);
 
+    Optional<Citizen> findByPhone(String phone);
+
     Optional<Citizen> findByOtp(String otp);
 
     List<Citizen> findAllByCityId(Long cityId);

@@ -3,11 +3,14 @@ package com.bbm.beprepared.controller;
 import com.bbm.beprepared.dto.request.CitizenRequestDto;
 import com.bbm.beprepared.dto.response.CitizenResponseDto;
 import com.bbm.beprepared.mapper.Mapper;
+import com.bbm.beprepared.model.Citizen;
 import com.bbm.beprepared.service.CitizenService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -30,6 +33,7 @@ public class CitizenController {
     }
 
     @GetMapping
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<List<CitizenResponseDto>> getAllCitizens() {
         return ResponseEntity.ok(mapper.mapCitizenToResponseDtoList(
                 citizenService.getAllCitizens()
@@ -37,6 +41,7 @@ public class CitizenController {
     }
 
     @GetMapping("/province")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<List<CitizenResponseDto>> getAllCitizensByProvince(@RequestParam Long id) {
         return ResponseEntity.ok(mapper.mapCitizenToResponseDtoList(
                 citizenService.getAllCitizensByProvinceId(id)
@@ -44,9 +49,17 @@ public class CitizenController {
     }
 
     @GetMapping("/city")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<List<CitizenResponseDto>> getAllCitizensByCity(@RequestParam Long id) {
         return ResponseEntity.ok(mapper.mapCitizenToResponseDtoList(
                 citizenService.getAllCitizensCityId(id)
+        ));
+    }
+
+    @GetMapping("/id")
+    public ResponseEntity<CitizenResponseDto> getCitizenById(@AuthenticationPrincipal Citizen citizen) {
+        return ResponseEntity.ok(mapper.mapCitizenToResponseDto(
+                citizenService.getCitizenById(citizen.getId())
         ));
     }
 
@@ -60,5 +73,10 @@ public class CitizenController {
     @PutMapping("/verify-account")
     public ResponseEntity<String> verifyAccount(@RequestParam String otp) {
         return ResponseEntity.ok(citizenService.verifyAccount(otp));
+    }
+
+    @PutMapping("/new-otp")
+    public ResponseEntity<String> generateOTPForCitizen(@RequestParam String phone) {
+        return ResponseEntity.ok(citizenService.generateOTPForCitizen(phone));
     }
 }

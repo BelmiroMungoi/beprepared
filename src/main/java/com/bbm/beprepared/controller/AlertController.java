@@ -8,6 +8,7 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -31,6 +32,7 @@ public class AlertController {
     }
 
     @GetMapping
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<List<AlertResponseDto>> getAllAlerts() {
         return ResponseEntity.ok(mapper.mapAlertToResponseDtoList(
                 alertService.getAllAlerts()
@@ -66,6 +68,7 @@ public class AlertController {
     }
 
     @PutMapping("/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<String> activeAlert(@PathVariable Long id) {
         return ResponseEntity.ok(alertService.activeAlert(id));
     }
