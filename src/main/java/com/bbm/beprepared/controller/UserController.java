@@ -5,6 +5,7 @@ import com.bbm.beprepared.dto.response.StatsResponse;
 import com.bbm.beprepared.dto.response.UserResponseDto;
 import com.bbm.beprepared.mapper.Mapper;
 import com.bbm.beprepared.service.UserService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/users")
+@Tag(name = "5. User Controller")
 public class UserController {
 
     private final Mapper mapper;

@@ -4,6 +4,7 @@ import com.bbm.beprepared.dto.request.AlertRequestDto;
 import com.bbm.beprepared.dto.response.AlertResponseDto;
 import com.bbm.beprepared.mapper.Mapper;
 import com.bbm.beprepared.service.AlertService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -16,6 +17,7 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/alerts")
+@Tag(name = "2. Alert Controller")
 public class AlertController {
 
     private final Mapper mapper;

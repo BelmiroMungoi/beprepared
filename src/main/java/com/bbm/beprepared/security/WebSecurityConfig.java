@@ -42,7 +42,10 @@ public class WebSecurityConfig {
                         .requestMatchers("/api/v1/citizens/",
                                 "/api/v1/citizens/verify-account",
                                 "/api/v1/citizens/new-otp",
-                                "/api/v1/locations/")
+                                "/api/v1/locations/**")
+                        .permitAll()
+                        .requestMatchers("/v3/api-docs/**",
+                                "/swagger-ui/**")
                         .permitAll()
                         .requestMatchers("/api/v1/users/**").hasRole("ADMIN")
                         .anyRequest()

@@ -4,6 +4,7 @@ import com.bbm.beprepared.dto.response.CityResponseDto;
 import com.bbm.beprepared.dto.response.ProvinceResponseDto;
 import com.bbm.beprepared.mapper.Mapper;
 import com.bbm.beprepared.service.LocationService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -13,6 +14,7 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/locations")
+@Tag(name = "4. Location Controller")
 public class LocationController {
 
     private final Mapper mapper;
